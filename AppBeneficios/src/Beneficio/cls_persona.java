@@ -26,7 +26,7 @@ public class cls_persona {
         return int_puntaje;
     }
 
-    public boolean getStr_estado() {
+    public boolean getStr_estado(boolean par) {
         return bln_estado;
     }
 

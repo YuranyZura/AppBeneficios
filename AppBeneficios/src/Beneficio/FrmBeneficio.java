@@ -6,6 +6,8 @@ import java.util.Queue;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+//import javax.swing.table.DefaultTableModel;
+
 public class FrmBeneficio extends javax.swing.JFrame {
  
     private Queue<cls_persona> colaPersonas;
@@ -13,6 +15,7 @@ public class FrmBeneficio extends javax.swing.JFrame {
     
     public FrmBeneficio() {
         initComponents();
+        setLocationRelativeTo(this);
         colaPersonas = new LinkedList<>();
         cbx_estado.setSelectedItem("NO");
         cbx_estado.setEnabled(false);
@@ -39,7 +42,6 @@ public class FrmBeneficio extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btn_limpiar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        btn_asignarTurno = new javax.swing.JButton();
         btn_entregarBeneficio = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -84,7 +86,7 @@ public class FrmBeneficio extends javax.swing.JFrame {
         jLabel6.setText("Estado:");
 
         cbx_estado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cbx_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI ", "NO" }));
+        cbx_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NO", "SI" }));
 
         btn_agregar.setBackground(new java.awt.Color(204, 204, 204));
         btn_agregar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -157,12 +159,13 @@ public class FrmBeneficio extends javax.swing.JFrame {
                                 .addComponent(cbx_estado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn_limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_consultar, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_actualizar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btn_consultar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_actualizar)))))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -200,15 +203,15 @@ public class FrmBeneficio extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btn_asignarTurno.setBackground(new java.awt.Color(204, 204, 204));
-        btn_asignarTurno.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btn_asignarTurno.setText("Asignar turno");
-        btn_asignarTurno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         btn_entregarBeneficio.setBackground(new java.awt.Color(204, 204, 204));
         btn_entregarBeneficio.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btn_entregarBeneficio.setText("Entregar beneficio");
         btn_entregarBeneficio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_entregarBeneficio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_entregarBeneficioActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -219,11 +222,11 @@ public class FrmBeneficio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Identificacion", "Puntaje", "Estado"
+                "Nombre", "Identificacion", "Puntaje"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -242,14 +245,13 @@ public class FrmBeneficio extends javax.swing.JFrame {
                         .addGap(98, 98, 98)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(btn_asignarTurno)
-                        .addGap(85, 85, 85)
-                        .addComponent(btn_entregarBeneficio))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btn_entregarBeneficio)
+                .addGap(116, 116, 116))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,9 +261,7 @@ public class FrmBeneficio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_entregarBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_asignarTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btn_entregarBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -278,7 +278,7 @@ public class FrmBeneficio extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 421, Short.MAX_VALUE)
+                .addGap(0, 334, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(267, 267, 267))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -308,14 +308,25 @@ public class FrmBeneficio extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    //Funcion agregar
+    private void asignarTurno() {
+    if (!colaPersonas.isEmpty()) {
+
+        cls_persona persona = colaPersonas.poll(); // Obtener la primera persona en la cola
+
+        // Aquí puedes realizar la lógica para asignar el turno a la persona
+
+        // Por ejemplo, podrías mostrar un mensaje con los detalles del turno asignado:
+
+        JOptionPane.showMessageDialog(null, "Turno asignado a: " + persona.getStr_nombre());
+       }
+    }
+
+//Funcion agregar
     protected void fnt_agregar(String str_nombre, String identificacion, String puntaje) {
      if (txt_nombre.getText().equals("") || txt_identificacion.getText().equals("") || txt_puntaje.getText().equals("")) {
         JOptionPane.showMessageDialog(null, "Debe llenar los campos");
@@ -326,6 +337,10 @@ public class FrmBeneficio extends javax.swing.JFrame {
             colaPersonas.add(persona);
             JOptionPane.showMessageDialog(null, "Beneficiario agregado con éxito");
 
+            // Mostrar la persona recién agregada en la tabla de beneficiarios
+            DefaultTableModel model = (DefaultTableModel) tbl_beneficiario.getModel();
+            model.addRow(new Object[]{persona.getStr_nombre(), persona.getStr_id(), persona.getInt_puntaje(), persona.getStr_estado(true)});
+            
             // Limpiar los campos después de agregar
             limpiarCampos();
      
@@ -364,7 +379,7 @@ public class FrmBeneficio extends javax.swing.JFrame {
             cls_persona personaEncontrada = colaPersonas.peek();
             txt_nombre.setText(personaEncontrada.getStr_nombre());
             txt_puntaje.setText(String.valueOf(personaEncontrada.getInt_puntaje()));
-            cbx_estado.setSelectedItem(personaEncontrada.getStr_estado());
+            cbx_estado.setSelectedItem(personaEncontrada.getStr_estado(true));
         }
     }//GEN-LAST:event_btn_consultarActionPerformed
 private void fnt_limpiar(){
@@ -408,6 +423,41 @@ private void fnt_limpiar(){
         limpiarCampos();
     }
     }//GEN-LAST:event_btn_actualizarActionPerformed
+private void actualizarTablaBeneficiarios() {
+    DefaultTableModel model = (DefaultTableModel) tbl_beneficiario.getModel();
+    model.setRowCount(0); // Limpiar la tabla
+
+    // Agregar las personas de la cola a la tabla
+    for (cls_persona persona : colaPersonas) {
+        model.addRow(new Object[]{persona.getStr_nombre(), persona.getStr_id(), persona.getInt_puntaje(), persona.getStr_estado(true)});
+    }
+}
+    private void btn_entregarBeneficioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entregarBeneficioActionPerformed
+                                                              
+    if (!colaPersonas.isEmpty()) {
+        // Obtener y remover la primera persona en la cola
+        cls_persona personaEntregada = colaPersonas.peek();
+
+        // Verificar si la persona ya tiene el beneficio entregado
+        if (!personaEntregada.getStr_estado(true)) {
+            // Asignar el estado como entregado
+            personaEntregada.setStr_estado(true);
+
+            // Actualizar la tabla de beneficiarios (eliminando la fila correspondiente a la persona entregada)
+            actualizarTablaBeneficiarios();
+
+            // Mostrar un mensaje indicando que el beneficio ha sido entregado
+            JOptionPane.showMessageDialog(this, "Beneficio entregado a: " + personaEntregada.getStr_nombre(), "Entrega de beneficio", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // Mostrar un mensaje si la persona ya tiene el beneficio entregado
+            JOptionPane.showMessageDialog(this, "La persona ya tiene el beneficio entregado", "Entrega de beneficio", JOptionPane.WARNING_MESSAGE);
+        }
+    } else {
+        // Mostrar un mensaje si la cola está vacía
+        JOptionPane.showMessageDialog(this, "No hay beneficiarios en la lista", "Entrega de beneficio", JOptionPane.WARNING_MESSAGE);
+    }
+
+    }//GEN-LAST:event_btn_entregarBeneficioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -447,7 +497,6 @@ private void fnt_limpiar(){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizar;
     private javax.swing.JButton btn_agregar;
-    private javax.swing.JButton btn_asignarTurno;
     private javax.swing.JButton btn_consultar;
     private javax.swing.JButton btn_entregarBeneficio;
     private javax.swing.JButton btn_limpiar;
